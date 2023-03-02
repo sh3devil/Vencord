@@ -85,9 +85,23 @@ async function buildPluginZip(target, files, shouldZip) {
         ...Object.fromEntries(await Promise.all(files.map(async f => {
             let content = await readFile(join("browser", f));
             if (f.startsWith("manifest")) {
-                const json = JSON.parse(content.toString("utf-8"));
-                json.version = PackageJSON.version;
-                content = new TextEncoder().encode(JSON.stringify(json));
+                const manifest = JSON.parse(content.toString("utf-8"));
+                manifest.version = PackageJSON.version;
+
+                if (target === "firefox-unpacked") {
+                    manifest.permissions.push(
+                        "webRequest",
+                        "webRequestBlocking",
+                        "*://*.discord.com/*",
+                        "https://raw.githubusercontent.com/*"
+                    );
+
+                    manifest.background = {
+                        scripts: ["background.js"]
+                    };
+                }
+
+                content = new TextEncoder().encode(JSON.stringify(manifest));
             }
 
             return [
@@ -140,6 +154,7 @@ const appendCssRuntime = readFile("dist/Vencord.user.css", "utf-8").then(content
 await Promise.all([
     appendCssRuntime,
     buildPluginZip("extension.zip", ["modifyResponseHeaders.json", "content.js", "manifest.json", "icon.png"], true),
-    buildPluginZip("extension-unpacked", ["modifyResponseHeaders.json", "content.js", "manifest.json", "icon.png"], false),
+    buildPluginZip("chromium-unpacked", ["modifyResponseHeaders.json", "content.js", "manifest.json", "icon.png"], false),
+    buildPluginZip("firefox-unpacked", ["modifyResponseHeaders.json", "content.js", "manifest.json", "icon.png", "background.js"], false),
 ]);
 
