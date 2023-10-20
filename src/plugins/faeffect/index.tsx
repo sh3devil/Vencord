@@ -52,6 +52,13 @@ function encode(primary: number, accent: number): string {
 function decode(bio: string): Array<number> | null {
     if (bio == null) return null;
 
+    const faeframe = bio.match(
+        /ff:/
+        );
+    const faeffect = bio.match(
+        /fe:/
+        );
+    
     const colorString = bio.match(
         /\u{e005b}\u{e0023}([\u{e0061}-\u{e0066}\u{e0041}-\u{e0046}\u{e0030}-\u{e0039}]+?)\u{e002c}\u{e0023}([\u{e0061}-\u{e0066}\u{e0041}-\u{e0046}\u{e0030}-\u{e0039}]+?)\u{e005d}/u,
     );
@@ -70,21 +77,10 @@ function decode(bio: string): Array<number> | null {
     }
 }
 
-const settings = definePluginSettings({
-    nitroFirst: {
-        description: "Default color source if both are present",
-        type: OptionType.SELECT,
-        options: [
-            { label: "Nitro colors", value: true, default: true },
-            { label: "Fake colors", value: false },
-        ]
-    }
-});
-
 export default definePlugin({
     name: "faeffect",
-    description: "Allows profile theming by hiding the colors in your bio thanks to invisible 3y3 encoding",
-    authors: [Devs.Alyxia, Devs.Remty],
+    description: "Allows profile frame and effect selection via text in bio.",
+    authors: [Devs.fayestival, Devs.Alyxia, Devs.Remty],
     patches: [
         {
             find: "getUserProfile=",
@@ -104,15 +100,14 @@ export default definePlugin({
         <Forms.FormSection>
             <Forms.FormTitle tag="h3">Usage</Forms.FormTitle>
             <Forms.FormText>
-                After enabling this plugin, you will see custom colors in the profiles of other people using compatible plugins. <br />
+                After enabling this plugin, you will see frames and effects from people also using faeffect. <br />
                 To set your own colors:
                 <ul>
                     <li>• go to your profile settings</li>
-                    <li>• choose your own colors in the Nitro preview</li>
-                    <li>• click the "Copy 3y3" button</li>
-                    <li>• paste the invisible text anywhere in your bio</li>
+                    <li>• find the id for the frame or effect you want</li>
+                    <li>• use ff:"idhere" as a frame id template, and fe:"idhere" for effects</li>
+                    <li>• put the text anywhere in your bio, on a new line</li>
                 </ul><br />
-                <b>Please note:</b> if you are using a theme which hides nitro ads, you should disable it temporarily to set colors.
             </Forms.FormText>
         </Forms.FormSection>),
     settings,
@@ -125,7 +120,8 @@ export default definePlugin({
                 return virtualMerge(user, {
                     premiumType: 2,
                     themeColors: colors,
-                    profileEffectID: "1139323100127834223"
+                    profileEffectID: faeffect
+                    
                 });
             }
         }
