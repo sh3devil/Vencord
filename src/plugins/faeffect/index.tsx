@@ -51,7 +51,7 @@ function encode(primary: number, accent: number): string {
 // Courtesy of Cynthia.
 function decode(bio: string): Array<number> | null {
     if (bio == null) return null;
-
+    
     const faeframe = bio.match(
         /ff:/
         );
@@ -74,6 +74,17 @@ function decode(bio: string): Array<number> | null {
         return null;
     }
 }
+
+const settings = definePluginSettings({
+    nitroFirst: {
+        description: "Default color source if both are present",
+        type: OptionType.SELECT,
+        options: [
+            { label: "Nitro colors", value: true, default: true },
+            { label: "Fake colors", value: false },
+        ]
+    }
+});
 
 export default definePlugin({
     name: "faeffect",
@@ -119,7 +130,6 @@ export default definePlugin({
                     premiumType: 2,
                     themeColors: colors,
                     profileEffectID: faeffect
-                    
                 });
             }
         }
