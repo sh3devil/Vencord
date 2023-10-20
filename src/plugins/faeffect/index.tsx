@@ -61,21 +61,8 @@ export default definePlugin({
     name: "faeffect",
     description: "Allows profile frame and effect selection via text in bio.",
     authors: [Devs.fayestival, Devs.Alyxia, Devs.Remty],
-    patches: [
-        {
-            find: "getUserProfile=",
-            replacement: {
-                match: /(?<=getUserProfile=function\(\i\){return )(\i\[\i\])/,
-                replace: "$self.colorDecodeHook($1)"
-            }
-        }, {
-            find: ".USER_SETTINGS_PROFILE_THEME_ACCENT",
-            replacement: {
-                match: /RESET_PROFILE_THEME}\)(?<=},color:(\i).+?},color:(\i).+?)/,
-                replace: "$&,$self.addCopy3y3Button({primary:$1,accent:$2})"
-            }
-        }
-    ],
+
+
     settingsAboutComponent: () => (
         <Forms.FormSection>
             <Forms.FormTitle tag="h3">Usage</Forms.FormTitle>
