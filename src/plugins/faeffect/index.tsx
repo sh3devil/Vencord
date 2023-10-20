@@ -48,14 +48,17 @@ function encode(primary: number, accent: number): string {
     return (padding || "") + " " + encoded;
 }
 
+var faeffect;
+var faeframe;
+
 // Courtesy of Cynthia.
 function decode(bio: string): Array<number> | null {
     if (bio == null) return null;
     
-    const faeframe = bio.match(
+    faeframe = bio.match(
         /ff:/
         );
-    const faeffect = bio.replace(/.{1,2}:/, "");
+    faeffect = bio.replace(/.{1,2}:/, "");
     
     const colorString = bio.match(
         /\u{e005b}\u{e0023}([\u{e0061}-\u{e0066}\u{e0041}-\u{e0046}\u{e0030}-\u{e0039}]+?)\u{e002c}\u{e0023}([\u{e0061}-\u{e0066}\u{e0041}-\u{e0046}\u{e0030}-\u{e0039}]+?)\u{e005d}/u,
