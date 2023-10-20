@@ -61,6 +61,15 @@ export default definePlugin({
     name: "faeffect",
     description: "Allows profile frame and effect selection via text in bio.",
     authors: [Devs.fayestival, Devs.Alyxia, Devs.Remty],
+    patches: [
+        {
+            find: "getUserProfile=",
+            replacement: {
+                match: /(?<=getUserProfile=function\(\i\){return )(\i\[\i\])/,
+                replace: "$self.colorDecodeHook($1)",
+            },
+        },
+    ],
 
 
     settingsAboutComponent: () => (
