@@ -82,7 +82,7 @@ const settings = definePluginSettings({
 });
 
 export default definePlugin({
-    name: "FakeProfileThemes",
+    name: "faeffect",
     description: "Allows profile theming by hiding the colors in your bio thanks to invisible 3y3 encoding",
     authors: [Devs.Alyxia, Devs.Remty],
     patches: [
