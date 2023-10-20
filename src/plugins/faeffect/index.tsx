@@ -55,9 +55,6 @@ function decode(bio: string): Array<number> | null {
     const faeframe = bio.match(
         /ff:/
         );
-    const faeffect = bio.match(
-        /fe:/
-        );
     const faeffect = bio.replace(/.{1,2}:/, "")
     
     const colorString = bio.match(
