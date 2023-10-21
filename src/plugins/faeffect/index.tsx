@@ -60,7 +60,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "faeffect",
     description: "Allows profile frame and effect selection via text in bio.",
-    authors: [Devs.fayestival, Devs.Alyxia, Devs.Remty],
+    authors: [Devs.fayestival],
     patches: [
         {
             find: "getUserProfile=",
@@ -83,6 +83,7 @@ export default definePlugin({
                     <li>• find the id for the frame or effect you want</li>
                     <li>• use ff:"idhere" as a frame id template, and fe:"idhere" for effects</li>
                     <li>• put the text anywhere in your bio, on a new line</li>
+                    <li>uses code from decor and freeprofilethemes! thanks to alyxia and fiery</li>
                 </ul><br />
             </Forms.FormText>
         </Forms.FormSection>),
