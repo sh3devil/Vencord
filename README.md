@@ -12,3 +12,4 @@ you can't have freeprofilethemes active at the same time, but it will not effect
 
 planned features:
 avatar decorations; i'm working on it
+vendetta version (only decorations, vendetta isn't up to date on effects yet and i'm also lazy)
