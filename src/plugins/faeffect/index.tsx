@@ -63,11 +63,11 @@ export default definePlugin({
     authors: [Devs.fayestival],
     patches: [
         {
-            find: "getUserProfile=",
+            find: "UserProfileStore",
             replacement: {
                 match: /(?<=getUserProfile\(\i\){return )(\i\[\i\])/,
-                replace: "$self.colorDecodeHook($1)",
-            },
+                replace: "$self.colorDecodeHook($1)"
+            }
         },
     ],
 
