@@ -65,7 +65,7 @@ export default definePlugin({
         {
             find: "getUserProfile=",
             replacement: {
-                match: /(?<=getUserProfile=function\(\i\){return )(\i\[\i\])/,
+                match: /(?<=getUserProfile\(\i\){return )(\i\[\i\])/,
                 replace: "$self.colorDecodeHook($1)",
             },
         },
